@@ -1,6 +1,5 @@
 package com.onurergun.finobsbe.user;
 
-import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -8,28 +7,35 @@ import java.util.Date;
 
 @Data
 @Entity
-@Table(name = "USERS")
+@Table(name = "USERS", uniqueConstraints = {
+        @UniqueConstraint(name = User.UNIQUE_CONSTRAINT_USERNAME, columnNames = {"userName"}),
+        @UniqueConstraint(name = User.UNIQUE_CONSTRAINT_EMAIL, columnNames = {"email"})})
 public class User {
+
+    public static final String UNIQUE_CONSTRAINT_USERNAME = "unique_constraint_username";
+    public static final String UNIQUE_CONSTRAINT_EMAIL = "unique_constraint_email";
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
-    @NotNull
+    @Column(nullable = false)
     private String firstName;
 
-    @NotNull
+    @Column(nullable = false)
     private String lastName;
 
-    @NotNull
+    @Column(nullable = false)
     private String userName;
 
-    @NotNull
+    @Column(nullable = false)
     private String email;
 
-    @NotNull
+    @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
     private Date registerDate;
 
     public User()

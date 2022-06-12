@@ -1,14 +1,19 @@
 package com.onurergun.finobsbe.common;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+public class APIResponseBody extends AbstractAPIResponseBody {
 
-import java.util.Map;
+    private Object responseData;
 
-@Data
-@AllArgsConstructor
-public class APIResponseBody {
+    public APIResponseBody(String url) {
+        super(url);
+        setSuccessful(true);
+    }
 
-    private String body;
+    public Object getResponseData() {
+        return responseData;
+    }
 
+    public void setResponseData(Object responseData) {
+        this.responseData = responseData;
+    }
 }
