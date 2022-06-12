@@ -1,1 +1,47 @@
+server:
+  port: 8080
+#  servlet:
+#    context-path: /api/v1/
+
+
+apiPrefix: "/api/v1/"
+
+  #spring:
+  #  jpa:
+  #    show-sql: true
+  #    properties:
+  #      hibernate:
+  #        format_sql: true
+
+
+
+
+#spring:
+#  jpa:
+#    properties:
+#      javax:
+#        persistence:
+#          validation:
+#            mode=CALLBACK
+#logging:
+#  level:
+#    org:
+#      hibernate:
+#        SQL: DEBUG
+#        type:
+#          descriptor:
+#            sql:
+#              BasicBinder: TRACE
+spring:
+  sql:
+    init:
+      platform: postgres
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: '{cipher}385e28922f90cccbddfd93c8b43d72652e6db98659ec7c15e58d1ac9de1b094c'
+  jpa:
+    hibernate:
+      ddl-auto: create
 
