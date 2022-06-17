@@ -1,8 +1,10 @@
-import SignUp from "./pages/SignUp";
-import NavBar from "./components/NavBar";
+import "./app.css";
 import {Helmet} from "react-helmet"
 
-import "./app.css";
+import Footer from "./components/Footer";
+import NavBar from "./components/NavBar";
+import SignUp from "./pages/SignUp";
+
 
 function App() {
   return (
@@ -12,6 +14,7 @@ function App() {
         </Helmet>
         <NavBar></NavBar>
         <SignUp></SignUp>
+        <Footer></Footer>
     </div>
   );
 }
