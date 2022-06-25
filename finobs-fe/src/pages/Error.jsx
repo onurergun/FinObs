@@ -10,7 +10,7 @@ function Error(props) {
                 <p className="lead">
                     The page you’re looking for doesn’t exist.
                 </p>
-                <Link to="/" className="btn btn-primary">Go Home</Link>
+                <Link to="/" className="btn btn-primary btn-lg">Go Home</Link>
             </div>
         </div>
     );
