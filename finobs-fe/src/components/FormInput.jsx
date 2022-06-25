@@ -10,8 +10,6 @@ function FormInput(props) {
     const inputErrMessage = props.errorMessage;
     const isRequired = props.required;
 
-    const isPasswordField = inputType === "password";
-
     return (
         <div className="form-group form-input-parent">
             <label>{labelText}</label>
