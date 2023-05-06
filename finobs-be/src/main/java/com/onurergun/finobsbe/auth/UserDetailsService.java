@@ -4,7 +4,6 @@ import com.onurergun.finobsbe.user.User;
 import com.onurergun.finobsbe.user.UserService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service

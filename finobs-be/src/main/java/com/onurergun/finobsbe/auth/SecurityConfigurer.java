@@ -13,48 +13,50 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfigurer {
 
-    private final FinObsProperties finObsProperties;
+  private final FinObsProperties finObsProperties;
 
-    public SecurityConfigurer(FinObsProperties finObsProperties) {
-        this.finObsProperties = finObsProperties;
-    }
+  private final JwtRequestFilter jwtRequestFilter;
 
-    @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-//        authenticationManagerBuilder.userDetailsService(userDetailsService);
-//        authenticationManager = authenticationManagerBuilder.build();
+  public SecurityConfigurer(FinObsProperties finObsProperties, JwtRequestFilter jwtRequestFilter) {
+    this.finObsProperties = finObsProperties;
+    this.jwtRequestFilter = jwtRequestFilter;
+  }
 
-        http.csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(new AuthEntryPointJwt()).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeHttpRequests()
-                    .antMatchers(HttpMethod.POST, finObsProperties.getApiPrefix() + "/users").permitAll()
-                    .antMatchers(HttpMethod.POST, finObsProperties.getApiPrefix() + "/auth/jwt").permitAll()
-                    .anyRequest().authenticated();
+  @Bean
+  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    http.csrf()
+        .disable()
+        .exceptionHandling()
+        .authenticationEntryPoint(new AuthEntryPointJwt())
+        .and()
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
+        .authorizeHttpRequests()
+        .antMatchers(HttpMethod.POST, finObsProperties.getApiPrefix() + "/users").permitAll()
+        .antMatchers(HttpMethod.POST, finObsProperties.getApiPrefix() + "/auth/jwt").permitAll()
+        .anyRequest().authenticated();
 
-        return http.build();
-    }
+    http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    return http.build();
+  }
+
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
   @Bean
   public AuthenticationManager authenticationManager(
       AuthenticationConfiguration authenticationConfiguration) throws Exception {
-            return authenticationConfiguration.getAuthenticationManager();
+    return authenticationConfiguration.getAuthenticationManager();
   }
-
-//    @Bean
-//    public AuthenticationManager authenticationManager() {
-//        return authenticationManager;
-//    }
 }
