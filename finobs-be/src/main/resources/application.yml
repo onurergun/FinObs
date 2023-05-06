@@ -3,8 +3,8 @@ server:
 #  servlet:
 #    context-path: /api/v1/
 
-
-apiPrefix: "/api/v1/"
+#
+#apiPrefix: "/api/v1/"
 
   #spring:
   #  jpa:
@@ -44,4 +44,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+
+
+finobs:
+  api-prefix: "/api/v1/"
+  jwt-key: '{cipher}7e5e4e6d58a02d46d04bfa7e326f9956a0c9f792e2bb193d509402549749deb4'
 

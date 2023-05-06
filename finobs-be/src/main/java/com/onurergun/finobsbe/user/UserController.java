@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping(path = "${apiPrefix}" + "users")
+@RequestMapping(path = "${finobs.api-prefix}" + "users")
 public class UserController {
 
   @Autowired
@@ -52,7 +52,7 @@ public class UserController {
     responseBody.setMessage("User created");
     fillResponseBodyRequestData(responseBody, userDto);
 
-    return new ResponseEntity(responseBody, HttpStatus.OK);
+    return new ResponseEntity<>(responseBody, HttpStatus.OK);
   }
 
   @ExceptionHandler(MethodArgumentNotValidException.class)
@@ -73,7 +73,7 @@ public class UserController {
               errorBody.addUpdateErrorParam(fieldName, errorMessage);
             });
 
-    return new ResponseEntity(errorBody, HttpStatus.BAD_REQUEST);
+    return new ResponseEntity<>(errorBody, HttpStatus.BAD_REQUEST);
   }
 
   @ExceptionHandler(DataIntegrityViolationException.class)
@@ -93,8 +93,7 @@ public class UserController {
     }
     errorBody.setMessage(message);
 
-    if (ex.getCause() instanceof ConstraintViolationException) {
-      ConstraintViolationException constraintViolationEx = (ConstraintViolationException)ex.getCause();
+    if (ex.getCause() instanceof ConstraintViolationException constraintViolationEx) {
       String constraintName = constraintViolationEx.getConstraintName();
 
       if (constraintName.equals(User.UNIQUE_CONSTRAINT_USERNAME)) {
