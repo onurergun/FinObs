@@ -1,21 +1,15 @@
 package com.onurergun.finobsbe.user;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.onurergun.finobsbe.application.user.UserServiceImpl;
+import com.onurergun.finobsbe.controller.user.UserController;
+import com.onurergun.finobsbe.infrastructure.user.UserDtoMapper;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(UserController.class)
 @AutoConfigureMockMvc(addFilters = false)
@@ -24,10 +18,10 @@ public class UserControllerTest {
   private MockMvc mockMvc;
 
   @MockBean
-  private UserDtoUserMapper mapper;
+  private UserDtoMapper mapper;
 
   @MockBean
-  private UserService service;
+  private UserServiceImpl service;
 
 //  @Test
 //  public void UsersGet() throws Exception {

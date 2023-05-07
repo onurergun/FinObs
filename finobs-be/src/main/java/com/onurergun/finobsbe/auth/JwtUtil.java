@@ -1,6 +1,6 @@
 package com.onurergun.finobsbe.auth;
 
-import com.onurergun.finobsbe.common.FinObsProperties;
+import com.onurergun.finobsbe.infrastructure.config.FinObsProperties;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

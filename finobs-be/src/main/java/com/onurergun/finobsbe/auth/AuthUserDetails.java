@@ -1,6 +1,6 @@
 package com.onurergun.finobsbe.auth;
 
-import com.onurergun.finobsbe.user.User;
+import com.onurergun.finobsbe.infrastructure.user.UserDao;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -12,7 +12,7 @@ public class AuthUserDetails implements UserDetails {
     private final String username;
     private final String password;
 
-    public AuthUserDetails(User user) {
+    public AuthUserDetails(UserDao user) {
         this.username = user.getUserName();
         this.password = user.getPassword();
     }

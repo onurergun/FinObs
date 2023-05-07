@@ -1,4 +1,4 @@
-package com.onurergun.finobsbe.common;
+package com.onurergun.finobsbe.infrastructure.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

@@ -1,5 +1,7 @@
 package com.onurergun.finobsbe.user;
 
+import com.onurergun.finobsbe.infrastructure.user.UserDao;
+import com.onurergun.finobsbe.infrastructure.user.UserJpaRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,11 +13,11 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 public class UserRepoTest {
 
     @Autowired
-    private UserRepository repository;
+    private UserJpaRepository repository;
 
     @Test
     public void createUser() {
-        User user1 = new User();
+        UserDao user1 = new UserDao();
         user1.setUserId(1L);
         user1.setFirstName("FN1");
         user1.setLastName("LN1");

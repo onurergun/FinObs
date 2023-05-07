@@ -1,6 +1,6 @@
 package com.onurergun.finobsbe.auth;
 
-import com.onurergun.finobsbe.common.FinObsProperties;
+import com.onurergun.finobsbe.infrastructure.config.FinObsProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

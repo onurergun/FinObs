@@ -1,5 +1,8 @@
 package com.onurergun.finobsbe.user;
 
+import com.onurergun.finobsbe.application.user.UserServiceImpl;
+import com.onurergun.finobsbe.infrastructure.user.UserDao;
+import com.onurergun.finobsbe.infrastructure.user.UserJpaRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -7,30 +10,28 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Optional;
-
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest
-public class UserServiceTest {
+public class UserAppImplTest {
 
   @Mock
-  private UserRepository repo;
+  private UserJpaRepository repo;
 
-  private UserService service;
+  private UserServiceImpl service;
 
   @BeforeEach
   private void Setup() {
-    service = new UserService(repo);
+    service = new UserServiceImpl(repo);
   }
 
   @Test
   public void createUser() {
     final Long userId = 1L;
 
-    User user1 = new User();
+    UserDao user1 = new UserDao();
     user1.setUserId(userId);
     user1.setFirstName("FN1");
     user1.setLastName("LN1");

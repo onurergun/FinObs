@@ -1,7 +1,6 @@
 package com.onurergun.finobsbe.auth;
 
-import com.onurergun.finobsbe.user.User;
-import com.onurergun.finobsbe.user.UserService;
+import com.onurergun.finobsbe.infrastructure.user.UserDao;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -9,15 +8,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsService implements org.springframework.security.core.userdetails.UserDetailsService {
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
-    public UserDetailsService(UserService userService) {
+    public UserDetailsService(UserServiceImpl userService) {
         this.userService = userService;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userService.getByUsername(username);
+        UserDao user = userService.getByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("Username not found");
         }
