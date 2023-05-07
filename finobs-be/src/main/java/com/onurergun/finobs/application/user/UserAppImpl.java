@@ -31,14 +31,14 @@ class UserAppImpl implements UserApp {
     @Override
     public List<UserDto> getAllUsers() {
         return userManager.getAllUsers().stream()
-                .map(u -> UserDto.from(u))
+                .map(UserDto::from)
                 .toList();
     }
 
     @Override
     public UserDto getByUsername(String username) {
-        Username usernameVO = new Username(username);
-        Optional<User> userByUsernameIgnoreCaseOptional = userManager.findUserByUsernameIgnoreCase(usernameVO);
+        Username uName = new Username(username);
+        Optional<User> userByUsernameIgnoreCaseOptional = userManager.findUserByUsernameIgnoreCase(uName);
         if (userByUsernameIgnoreCaseOptional.isEmpty()) return null;
         return UserDto.from(userByUsernameIgnoreCaseOptional.get());
     }

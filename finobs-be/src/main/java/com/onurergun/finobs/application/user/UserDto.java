@@ -55,8 +55,8 @@ public class UserDto {
                 user.getFirstname().value(),
                 user.getLastname().value(),
                 user.getUsername().value(),
-                user.getPassword().value(),
                 user.getEmail().value(),
+                user.getPassword().value(),
                 user.getRegisterDate(),
                 true
         );
