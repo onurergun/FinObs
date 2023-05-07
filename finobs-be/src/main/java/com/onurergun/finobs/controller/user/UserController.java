@@ -71,7 +71,7 @@ public class UserController {
 
     APIResponseBody responseBody = new APIResponseBody(request.getServletPath());
     responseBody.setMessage("User created");
-    fillResponseBodyRequestData(responseBody, userDto);
+    fillResponseBodyRequestData(responseBody, createUserRequest);
 
     return new ResponseEntity<>(responseBody, HttpStatus.OK);
   }
@@ -83,7 +83,7 @@ public class UserController {
 
     APIResponseBodyError errorBody = new APIResponseBodyError(request.getServletPath());
     errorBody.setMessage("Invalid value(s) encountered");
-    fillResponseBodyRequestData(errorBody, (UserDto)ex.getTarget());
+    fillResponseBodyRequestData(errorBody, (CreateUserRequest)ex.getTarget());
 
     ex.getBindingResult()
         .getAllErrors()
@@ -103,7 +103,7 @@ public class UserController {
           DataIntegrityViolationException ex) {
 
     APIResponseBodyError errorBody = new APIResponseBodyError(request.getServletPath());
-    fillResponseBodyRequestData(errorBody, (UserDto)request.getAttribute("userDto"));
+    fillResponseBodyRequestData(errorBody, (CreateUserRequest) request.getAttribute("userDto"));
 
     String mostSpecificCauseMessage = ex.getMostSpecificCause().getMessage();
     String[] parsedCauseMessage = mostSpecificCauseMessage.split("Detail:");
@@ -131,11 +131,11 @@ public class UserController {
     return new ResponseEntity<>(errorBody, HttpStatus.BAD_REQUEST);
   }
 
-  private void fillResponseBodyRequestData(AbstractAPIResponseBody responseBody, UserDto userDto) {
-    responseBody.addUpdateRequestDataParam("firstName", userDto.getFirstName());
-    responseBody.addUpdateRequestDataParam("lastName", userDto.getLastName());
-    responseBody.addUpdateRequestDataParam("userName", userDto.getUserName());
-    responseBody.addUpdateRequestDataParam("email", userDto.getEmail());
-    responseBody.addUpdateRequestDataParam("password", userDto.getPassword());
+  private void fillResponseBodyRequestData(AbstractAPIResponseBody responseBody, CreateUserRequest createUserRequest) {
+    responseBody.addUpdateRequestDataParam("firstName", createUserRequest.getFirstName());
+    responseBody.addUpdateRequestDataParam("lastName", createUserRequest.getLastName());
+    responseBody.addUpdateRequestDataParam("userName", createUserRequest.getUserName());
+    responseBody.addUpdateRequestDataParam("email", createUserRequest.getEmail());
+    responseBody.addUpdateRequestDataParam("password", createUserRequest.getPassword());
   }
 }
