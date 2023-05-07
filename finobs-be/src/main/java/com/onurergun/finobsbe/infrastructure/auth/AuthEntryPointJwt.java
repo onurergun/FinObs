@@ -1,4 +1,4 @@
-package com.onurergun.finobsbe.auth;
+package com.onurergun.finobsbe.infrastructure.auth;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

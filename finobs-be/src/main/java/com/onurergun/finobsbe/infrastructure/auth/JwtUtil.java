@@ -1,4 +1,4 @@
-package com.onurergun.finobsbe.auth;
+package com.onurergun.finobsbe.infrastructure.auth;
 
 import com.onurergun.finobsbe.infrastructure.config.FinObsProperties;
 import io.jsonwebtoken.Claims;

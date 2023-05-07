@@ -1,4 +1,4 @@
-package com.onurergun.finobsbe.common;
+package com.onurergun.finobsbe.controller.common;
 
 import java.util.HashMap;
 import java.util.Map;

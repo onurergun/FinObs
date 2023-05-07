@@ -1,11 +1,11 @@
-package com.onurergun.finobsbe.auth;
+package com.onurergun.finobsbe.controller.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class AuthJwtResponse {
+class AuthJwtResponse {
 
     private String token;
 

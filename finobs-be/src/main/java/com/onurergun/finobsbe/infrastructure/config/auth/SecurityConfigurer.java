@@ -1,5 +1,7 @@
-package com.onurergun.finobsbe.auth;
+package com.onurergun.finobsbe.infrastructure.config.auth;
 
+import com.onurergun.finobsbe.infrastructure.auth.AuthEntryPointJwt;
+import com.onurergun.finobsbe.infrastructure.auth.JwtRequestFilter;
 import com.onurergun.finobsbe.infrastructure.config.FinObsProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

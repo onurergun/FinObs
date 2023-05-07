@@ -2,14 +2,13 @@ package com.onurergun.finobsbe.controller.user;
 
 import com.onurergun.finobsbe.application.user.UserApp;
 import com.onurergun.finobsbe.application.user.UserDto;
-import com.onurergun.finobsbe.common.APIResponseBody;
-import com.onurergun.finobsbe.common.APIResponseBodyError;
-import com.onurergun.finobsbe.common.AbstractAPIResponseBody;
+import com.onurergun.finobsbe.controller.common.APIResponseBody;
+import com.onurergun.finobsbe.controller.common.APIResponseBodyError;
+import com.onurergun.finobsbe.controller.common.AbstractAPIResponseBody;
 import com.onurergun.finobsbe.infrastructure.user.UserDao;
 import com.onurergun.finobsbe.infrastructure.user.UserDtoMapper;
 
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.hibernate.exception.ConstraintViolationException;
@@ -38,29 +37,27 @@ public class UserController {
     APIResponseBody responseBody = new APIResponseBody(request.getServletPath());
     responseBody.setMessage("All users listed");
 
-    List<UserDao> users = userService.getAllUsers();
-    List<UserDto> usersDto = users.stream().map((user) -> userDtoMapper.userToUserDto(user)).collect(Collectors.toList());
-
-    responseBody.setResponseData(usersDto);
+    List<UserDto> users = userService.getAllUsers();
+    responseBody.setResponseData(users);
     return new ResponseEntity<>(responseBody, HttpStatus.OK);
   }
 
-  @PostMapping()
-  public ResponseEntity<AbstractAPIResponseBody> createUser(
-      HttpServletRequest request,
-      @Valid @RequestBody UserDto userDto) {
-
-    request.setAttribute("userDto", userDto);
-
-    UserDao user = userDtoMapper.userDtoToUser(userDto);
-    UserDao createdUser = userService.createUser(user);
-
-    APIResponseBody responseBody = new APIResponseBody(request.getServletPath());
-    responseBody.setMessage("User created");
-    fillResponseBodyRequestData(responseBody, userDto);
-
-    return new ResponseEntity<>(responseBody, HttpStatus.OK);
-  }
+//  @PostMapping()
+//  public ResponseEntity<AbstractAPIResponseBody> createUser(
+//      HttpServletRequest request,
+//      @Valid @RequestBody UserDto userDto) {
+//
+//    request.setAttribute("userDto", userDto);
+//
+//    UserDao user = userDtoMapper.userDtoToUser(userDto);
+//    UserDao createdUser = userService.createUser(user);
+//
+//    APIResponseBody responseBody = new APIResponseBody(request.getServletPath());
+//    responseBody.setMessage("User created");
+//    fillResponseBodyRequestData(responseBody, userDto);
+//
+//    return new ResponseEntity<>(responseBody, HttpStatus.OK);
+//  }
 
   @PostMapping()
   public ResponseEntity<AbstractAPIResponseBody> createUser(

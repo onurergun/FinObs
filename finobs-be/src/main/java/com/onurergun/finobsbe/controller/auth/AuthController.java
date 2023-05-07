@@ -1,15 +1,13 @@
-package com.onurergun.finobsbe.auth;
+package com.onurergun.finobsbe.controller.auth;
 
-import com.onurergun.finobsbe.common.APIResponseBody;
-import com.onurergun.finobsbe.common.APIResponseBodyError;
-import com.onurergun.finobsbe.common.AbstractAPIResponseBody;
+import com.onurergun.finobsbe.application.auth.AuthApp;
+import com.onurergun.finobsbe.controller.common.APIResponseBody;
+import com.onurergun.finobsbe.controller.common.APIResponseBodyError;
+import com.onurergun.finobsbe.controller.common.AbstractAPIResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,31 +17,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(path = "${finobs.api-prefix}" + "auth")
 public class AuthController {
 
-    private final AuthenticationManager authenticationManager;
+    private final AuthApp authApp;
 
-    private final UserDetailsService userDetailsService;
-
-    private final JwtUtil jwtUtil;
-
-    public AuthController(AuthenticationManager authenticationManager, UserDetailsService userDetailsService, JwtUtil jwtUtil) {
-        this.authenticationManager = authenticationManager;
-        this.userDetailsService = userDetailsService;
-        this.jwtUtil = jwtUtil;
+    public AuthController(AuthApp authApp) {
+        this.authApp = authApp;
     }
 
     @PostMapping("/jwt")
     public ResponseEntity<AbstractAPIResponseBody> loginJwt(
             HttpServletRequest request,
-            @RequestBody AuthJwtDto authJwtDto) {
+            @RequestBody AuthJwtRequest authJwtRequest) {
         try {
-            final String username = authJwtDto.getUserName();
-            final String password = authJwtDto.getPassword();
+            final String username = authJwtRequest.getUserName();
+            final String password = authJwtRequest.getPassword();
 
-            this.authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(username, password));
-
-            final UserDetails userDetails = userDetailsService.loadUserByUsername(authJwtDto.getUserName());
-            final String jwtToken = jwtUtil.generateToken(userDetails);
+            final String jwtToken = authApp.authenticateWithUsernameAndPassword(username, password);
 
             APIResponseBody responseBody = new APIResponseBody(request.getServletPath());
             responseBody.setMessage("Login successful");

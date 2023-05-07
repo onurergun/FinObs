@@ -1,4 +1,4 @@
-package com.onurergun.finobsbe.common;
+package com.onurergun.finobsbe.controller.common;
 
 public class APIResponseBody extends AbstractAPIResponseBody {
 

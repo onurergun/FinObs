@@ -1,18 +1,17 @@
-package com.onurergun.finobsbe.auth;
+package com.onurergun.finobsbe.application.auth;
 
-import com.onurergun.finobsbe.infrastructure.user.UserDao;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
+import com.onurergun.finobsbe.application.user.UserDto;
 import java.util.ArrayList;
 import java.util.Collection;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public class AuthUserDetails implements UserDetails {
 
     private final String username;
     private final String password;
 
-    public AuthUserDetails(UserDao user) {
+    public AuthUserDetails(UserDto user) {
         this.username = user.getUserName();
         this.password = user.getPassword();
     }
